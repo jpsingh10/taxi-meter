@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
     View,
     Text,
@@ -8,6 +8,7 @@ import {
     Alert,
     SafeAreaView,
 } from 'react-native';
+import { useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { FareProfile, Preferences } from '../../src/types';
 import { colors, spacing, borderRadius, typography } from '../../src/theme';
@@ -34,9 +35,11 @@ export default function SettingsScreen() {
         setPreferences(loadedPrefs);
     }, []);
 
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
+    useFocusEffect(
+        useCallback(() => {
+            loadData();
+        }, [loadData])
+    );
 
     const handleSaveProfile = async (data: Omit<FareProfile, 'id'>) => {
         if (editingProfile) {
