@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "TaxiMeter",
+    "slug": "taxi-meter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "taxi-meter",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.taximeter.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "TaxiMeter needs your location to track ride distance and calculate fares.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "TaxiMeter needs background location to keep tracking your ride when the app is in the background."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A0A0F"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
+      "package": "com.taximeter.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "TaxiMeter needs your location to track ride distance and calculate fares."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
