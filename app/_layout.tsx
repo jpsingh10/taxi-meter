@@ -1,9 +1,10 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { MeterProvider } from '../src/context/MeterContext';
 
 export default function RootLayout() {
     return (
-        <>
+        <MeterProvider>
             <StatusBar style="light" />
             <Stack
                 screenOptions={{
@@ -27,6 +28,6 @@ export default function RootLayout() {
                     }}
                 />
             </Stack>
-        </>
+        </MeterProvider>
     );
 }
