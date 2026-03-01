@@ -39,3 +39,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Antigravity agent & docs
+.agent/
+docs/

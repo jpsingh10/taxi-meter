@@ -5,15 +5,15 @@ import {
     StyleSheet,
     ScrollView,
     TouchableOpacity,
-    SafeAreaView,
     Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { RideRecord } from '../src/types';
-import { colors, spacing, borderRadius, typography } from '../src/theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../src/theme';
 import { FareBreakdown } from '../src/components/FareBreakdown';
 import { useMeter } from '../src/context/MeterContext';
 import {
@@ -27,6 +27,8 @@ export default function RideSummaryScreen() {
     const { rideId } = useLocalSearchParams<{ rideId: string }>();
     const { preferences, resetMeter } = useMeter();
     const [ride, setRide] = useState<RideRecord | null>(null);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     useEffect(() => {
         if (rideId) {
@@ -151,7 +153,7 @@ export default function RideSummaryScreen() {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: colors.background.primary,

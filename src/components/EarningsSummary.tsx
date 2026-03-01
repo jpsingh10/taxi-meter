@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     todayEarnings: number;
@@ -16,6 +16,8 @@ export function EarningsSummary({
     totalRides,
     currencySymbol,
 }: Props) {
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
     return (
         <View style={styles.container}>
             <View style={styles.stat}>
@@ -43,7 +45,7 @@ export function EarningsSummary({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         flexDirection: 'row',
         backgroundColor: colors.background.card,

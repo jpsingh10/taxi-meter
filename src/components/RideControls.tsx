@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FareProfile, MeterStatus } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     meterStatus: MeterStatus;
@@ -20,6 +20,8 @@ export function RideControls({
     onStop,
 }: Props) {
     const [profileIndex, setProfileIndex] = useState(0);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     const defaultIndex = profiles.findIndex((p) => p.isDefault);
     const activeIndex = defaultIndex >= 0 ? defaultIndex : 0;
@@ -78,7 +80,7 @@ export function RideControls({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         gap: spacing.md,
         paddingTop: spacing.lg,

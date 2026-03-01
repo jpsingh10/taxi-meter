@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 import { DistanceUnit } from '../types';
 import { milesToKm } from '../engine/geoUtils';
 
@@ -26,6 +26,8 @@ export function MeterStats({
     const displayDistance =
         distanceUnit === 'km' ? milesToKm(distanceMiles) : distanceMiles;
     const unitLabel = distanceUnit === 'km' ? 'km' : 'mi';
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     return (
         <View style={styles.container}>
@@ -57,7 +59,7 @@ export function MeterStats({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         flexDirection: 'row',
         backgroundColor: colors.background.card,

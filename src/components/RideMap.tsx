@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import MapView, { Polyline, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { RoutePoint, MovementStatus } from '../types';
-import { colors } from '../theme';
+import { useThemeColors } from '../theme';
 
 interface Props {
     routePoints: RoutePoint[];
@@ -61,6 +61,8 @@ export function RideMap({
     isLive,
 }: Props) {
     const mapRef = useRef<MapView>(null);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     // Auto-follow current position during live ride
     useEffect(() => {
@@ -116,7 +118,6 @@ export function RideMap({
                 initialRegion={initialRegion}
                 showsUserLocation={isLive}
                 showsMyLocationButton={false}
-                userInterfaceStyle="dark"
             >
                 {/* Route segments */}
                 {segments.map((segment, index) => (
@@ -156,7 +157,7 @@ export function RideMap({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         flex: 1,
         borderRadius: 16,

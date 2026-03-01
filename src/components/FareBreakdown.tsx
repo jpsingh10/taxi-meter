@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FareBreakdown as FareBreakdownType } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     breakdown: FareBreakdownType;
@@ -23,6 +23,8 @@ export function FareBreakdown({
     waitingRatePerMinute,
 }: Props) {
     const waitingMinutes = waitingTimeSeconds / 60;
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     return (
         <View style={styles.container}>
@@ -65,7 +67,7 @@ export function FareBreakdown({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         backgroundColor: colors.background.card,
         borderRadius: borderRadius.lg,

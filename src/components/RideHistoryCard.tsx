@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { RideRecord } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     ride: RideRecord;
@@ -21,6 +21,8 @@ function formatDuration(seconds: number): string {
 export function RideHistoryCard({ ride, currencySymbol, onPress }: Props) {
     const date = new Date(ride.startTime);
     const totalSeconds = ride.movingTimeSeconds + ride.waitingTimeSeconds;
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     return (
         <TouchableOpacity
@@ -60,7 +62,7 @@ export function RideHistoryCard({ ride, currencySymbol, onPress }: Props) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     card: {
         flexDirection: 'row',
         alignItems: 'center',

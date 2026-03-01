@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useMeter } from '../../src/context/MeterContext';
@@ -8,13 +9,15 @@ import { FareDisplay } from '../../src/components/FareDisplay';
 import { MeterStats } from '../../src/components/MeterStats';
 import { RideControls } from '../../src/components/RideControls';
 import { RideMap } from '../../src/components/RideMap';
-import { colors, spacing, borderRadius } from '../../src/theme';
+import { useThemeColors, spacing, borderRadius } from '../../src/theme';
 
 export default function MeterScreen() {
     const { state, preferences, profiles, startRide, stopRide, resetMeter } =
         useMeter();
     const router = useRouter();
     const [showMap, setShowMap] = useState(false);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     const handleStop = async () => {
         const ride = await stopRide();
@@ -104,7 +107,7 @@ export default function MeterScreen() {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: colors.background.primary,

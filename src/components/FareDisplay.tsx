@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
-import { colors, spacing, typography } from '../theme';
+import { useThemeColors, spacing, typography } from '../theme';
 
 interface Props {
     fare: number;
@@ -10,6 +10,8 @@ interface Props {
 export function FareDisplay({ fare, currencySymbol }: Props) {
     const scaleAnim = useRef(new Animated.Value(1)).current;
     const prevFare = useRef(fare);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     // Subtle bounce when fare changes
     useEffect(() => {
@@ -42,7 +44,7 @@ export function FareDisplay({ fare, currencySymbol }: Props) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         alignItems: 'center',
         paddingVertical: spacing['3xl'],

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FareProfile } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     profile: FareProfile;
@@ -19,6 +19,8 @@ export function FareProfileCard({
     onDelete,
     onSetDefault,
 }: Props) {
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
     return (
         <View style={styles.card}>
             <View style={styles.header}>
@@ -83,7 +85,7 @@ export function FareProfileCard({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     card: {
         backgroundColor: colors.background.card,
         borderRadius: borderRadius.lg,

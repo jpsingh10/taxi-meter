@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Preferences } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     preferences: Preferences;
@@ -16,6 +16,8 @@ interface Props {
 }
 
 export function PreferencesForm({ preferences, onUpdate }: Props) {
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
     const adjustThreshold = (delta: number) => {
         const newVal = Math.max(1, Math.min(15, preferences.speedThresholdMph + delta));
         onUpdate({ speedThresholdMph: newVal });
@@ -118,7 +120,7 @@ export function PreferencesForm({ preferences, onUpdate }: Props) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         gap: spacing.lg,
     },

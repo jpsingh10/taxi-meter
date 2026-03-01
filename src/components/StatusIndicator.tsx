@@ -1,22 +1,24 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { MeterStatus, MovementStatus } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     meterStatus: MeterStatus;
     movementStatus: MovementStatus;
 }
 
-const statusConfig = {
-    idle: { label: 'IDLE', color: colors.status.idle },
-    moving: { label: 'MOVING', color: colors.status.moving },
-    waiting: { label: 'WAITING', color: colors.status.waiting },
-    stopped: { label: 'STOPPED', color: colors.status.stopped },
-};
-
 export function StatusIndicator({ meterStatus, movementStatus }: Props) {
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
     const pulseAnim = useRef(new Animated.Value(1)).current;
+
+    const statusConfig = {
+        idle: { label: 'IDLE', color: colors.status.idle },
+        moving: { label: 'MOVING', color: colors.status.moving },
+        waiting: { label: 'WAITING', color: colors.status.waiting },
+        stopped: { label: 'STOPPED', color: colors.status.stopped },
+    };
 
     const config =
         meterStatus === 'running'
@@ -62,7 +64,7 @@ export function StatusIndicator({ meterStatus, movementStatus }: Props) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',

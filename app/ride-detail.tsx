@@ -5,15 +5,15 @@ import {
     StyleSheet,
     ScrollView,
     TouchableOpacity,
-    SafeAreaView,
     Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { RideRecord } from '../src/types';
-import { colors, spacing, borderRadius, typography } from '../src/theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../src/theme';
 import { FareBreakdown } from '../src/components/FareBreakdown';
 import { useMeter } from '../src/context/MeterContext';
 import { generateReceiptHTML } from '../src/utils/receiptGenerator';
@@ -24,6 +24,9 @@ export default function RideDetailScreen() {
     const { rideId } = useLocalSearchParams<{ rideId: string }>();
     const { preferences } = useMeter();
     const [ride, setRide] = useState<RideRecord | null>(null);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
+    const detailStyles = createDetailStyles(colors);
 
     useEffect(() => {
         if (rideId) {
@@ -117,14 +120,13 @@ export default function RideDetailScreen() {
                     waitingRatePerMinute={ride.fareProfileUsed.waitingRatePerMinute}
                 />
 
-                {/* Details */}
                 <View style={styles.detailsCard}>
-                    <DetailRow label="Time" value={`${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} – ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`} />
-                    <DetailRow label="Duration" value={`${durationMin} min`} />
-                    <DetailRow label="Distance" value={`${ride.distanceMiles.toFixed(2)} mi`} />
-                    <DetailRow label="Moving Time" value={`${Math.floor(ride.movingTimeSeconds / 60)} min`} />
-                    <DetailRow label="Waiting Time" value={`${Math.floor(ride.waitingTimeSeconds / 60)} min`} />
-                    <DetailRow label="Rate Profile" value={ride.fareProfileUsed.name} />
+                    <DetailRow label="Time" value={`${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} – ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`} colors={colors} />
+                    <DetailRow label="Duration" value={`${durationMin} min`} colors={colors} />
+                    <DetailRow label="Distance" value={`${ride.distanceMiles.toFixed(2)} mi`} colors={colors} />
+                    <DetailRow label="Moving Time" value={`${Math.floor(ride.movingTimeSeconds / 60)} min`} colors={colors} />
+                    <DetailRow label="Waiting Time" value={`${Math.floor(ride.waitingTimeSeconds / 60)} min`} colors={colors} />
+                    <DetailRow label="Rate Profile" value={ride.fareProfileUsed.name} colors={colors} />
                 </View>
 
                 {/* Actions */}
@@ -144,7 +146,8 @@ export default function RideDetailScreen() {
     );
 }
 
-function DetailRow({ label, value }: { label: string; value: string }) {
+function DetailRow({ label, value, colors }: { label: string; value: string; colors: any }) {
+    const detailStyles = createDetailStyles(colors);
     return (
         <View style={detailStyles.row}>
             <Text style={detailStyles.label}>{label}</Text>
@@ -153,7 +156,7 @@ function DetailRow({ label, value }: { label: string; value: string }) {
     );
 }
 
-const detailStyles = StyleSheet.create({
+const createDetailStyles = (colors: any) => StyleSheet.create({
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -170,7 +173,7 @@ const detailStyles = StyleSheet.create({
     },
 });
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: colors.background.primary,

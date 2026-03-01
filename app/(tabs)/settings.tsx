@@ -6,12 +6,12 @@ import {
     ScrollView,
     TouchableOpacity,
     Alert,
-    SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { FareProfile, Preferences } from '../../src/types';
-import { colors, spacing, borderRadius, typography } from '../../src/theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../../src/theme';
 import { FareProfileCard } from '../../src/components/FareProfileCard';
 import { FareProfileForm } from '../../src/components/FareProfileForm';
 import { PreferencesForm } from '../../src/components/PreferencesForm';
@@ -25,6 +25,8 @@ export default function SettingsScreen() {
     );
     const [formVisible, setFormVisible] = useState(false);
     const [editingProfile, setEditingProfile] = useState<FareProfile | null>(null);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     const loadData = useCallback(async () => {
         const [loadedProfiles, loadedPrefs] = await Promise.all([
@@ -151,7 +153,7 @@ export default function SettingsScreen() {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: colors.background.primary,

@@ -11,7 +11,7 @@ import {
     Switch,
 } from 'react-native';
 import { FareProfile } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     visible: boolean;
@@ -33,6 +33,8 @@ export function FareProfileForm({
     const [perMileRate, setPerMileRate] = useState('');
     const [waitingRate, setWaitingRate] = useState('');
     const [isDefault, setIsDefault] = useState(false);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     useEffect(() => {
         if (profile) {
@@ -161,7 +163,7 @@ export function FareProfileForm({
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     overlay: {
         flex: 1,
         justifyContent: 'flex-end',

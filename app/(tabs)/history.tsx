@@ -4,12 +4,12 @@ import {
     Text,
     StyleSheet,
     FlatList,
-    SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { RideRecord } from '../../src/types';
-import { colors, spacing, typography } from '../../src/theme';
+import { useThemeColors, spacing, typography } from '../../src/theme';
 import { EarningsSummary } from '../../src/components/EarningsSummary';
 import { RideHistoryCard } from '../../src/components/RideHistoryCard';
 import { useMeter } from '../../src/context/MeterContext';
@@ -21,6 +21,8 @@ export default function HistoryScreen() {
     const [rides, setRides] = useState<RideRecord[]>([]);
     const [todayEarnings, setTodayEarnings] = useState(0);
     const [weekEarnings, setWeekEarnings] = useState(0);
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
 
     useFocusEffect(
         useCallback(() => {
@@ -85,7 +87,7 @@ export default function HistoryScreen() {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: colors.background.primary,
