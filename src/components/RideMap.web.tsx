@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { RoutePoint, MovementStatus } from '../types';
-import { colors, spacing, borderRadius, typography } from '../theme';
+import { useThemeColors, spacing, borderRadius, typography } from '../theme';
 
 interface Props {
     routePoints: RoutePoint[];
@@ -16,6 +16,9 @@ interface Props {
  * Shows a placeholder with route point count.
  */
 export function RideMap({ routePoints, movementStatus, isLive }: Props) {
+    const colors = useThemeColors();
+    const styles = createStyles(colors);
+
     return (
         <View style={styles.container}>
             <Ionicons name="map-outline" size={48} color={colors.text.muted} />
@@ -30,7 +33,7 @@ export function RideMap({ routePoints, movementStatus, isLive }: Props) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

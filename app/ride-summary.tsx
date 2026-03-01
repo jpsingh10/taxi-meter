@@ -21,6 +21,7 @@ import {
     generateReceiptText,
 } from '../src/utils/receiptGenerator';
 import * as rideHistoryStorage from '../src/storage/rideHistory';
+import { RideMap } from '../src/components/RideMap';
 
 export default function RideSummaryScreen() {
     const router = useRouter();
@@ -87,6 +88,16 @@ export default function RideSummaryScreen() {
                     <Text style={styles.totalFare}>
                         {preferences.currencySymbol}{ride.totalFare.toFixed(2)}
                     </Text>
+                </View>
+
+                {/* Route Map */}
+                <View style={styles.mapContainer}>
+                    <RideMap
+                        routePoints={ride.routePoints}
+                        currentLocation={null}
+                        movementStatus="waiting"
+                        isLive={false}
+                    />
                 </View>
 
                 {/* Fare Breakdown */}
@@ -195,6 +206,14 @@ const createStyles = (colors: any) => StyleSheet.create({
     totalFare: {
         ...typography.display,
         color: colors.primary.default,
+    },
+    mapContainer: {
+        height: 250,
+        marginBottom: spacing['2xl'],
+        borderRadius: borderRadius.lg,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: colors.border.default,
     },
     detailsCard: {
         backgroundColor: colors.background.card,

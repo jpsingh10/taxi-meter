@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import MapView, { Polyline, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { RoutePoint, MovementStatus } from '../types';
 import { useThemeColors } from '../theme';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Props {
     routePoints: RoutePoint[];
@@ -109,6 +110,9 @@ export function RideMap({
             longitudeDelta: 0.05,
         };
 
+    const firstPoint = routePoints.length > 0 ? routePoints[0] : null;
+    const lastPoint = routePoints.length > 0 ? routePoints[routePoints.length - 1] : null;
+
     return (
         <View style={styles.container}>
             <MapView
@@ -150,6 +154,32 @@ export function RideMap({
                                 },
                             ]}
                         />
+                    </Marker>
+                )}
+
+                {/* Start Marker (Completed Ride) */}
+                {!isLive && firstPoint && (
+                    <Marker
+                        coordinate={{
+                            latitude: firstPoint.latitude,
+                            longitude: firstPoint.longitude,
+                        }}
+                        title="Start"
+                    >
+                        <Ionicons name="location" size={32} color={colors.status.moving} />
+                    </Marker>
+                )}
+
+                {/* End Marker (Completed Ride) */}
+                {!isLive && lastPoint && (
+                    <Marker
+                        coordinate={{
+                            latitude: lastPoint.latitude,
+                            longitude: lastPoint.longitude,
+                        }}
+                        title="End"
+                    >
+                        <Ionicons name="location" size={32} color={colors.danger} />
                     </Marker>
                 )}
             </MapView>
