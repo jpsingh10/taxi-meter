@@ -7,7 +7,6 @@
     "icon": "./assets/icon.png",
     "scheme": "taxi-meter",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.taximeter.app",
