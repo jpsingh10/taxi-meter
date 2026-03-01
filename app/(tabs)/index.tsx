@@ -16,8 +16,8 @@ export default function MeterScreen() {
     const router = useRouter();
     const [showMap, setShowMap] = useState(false);
 
-    const handleStop = () => {
-        const ride = stopRide();
+    const handleStop = async () => {
+        const ride = await stopRide();
         router.push({
             pathname: '/ride-summary',
             params: { rideId: ride.id },

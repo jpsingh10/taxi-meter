@@ -25,7 +25,7 @@ interface MeterContextValue {
     preferences: Preferences;
     profiles: FareProfile[];
     startRide: (profile: FareProfile) => void;
-    stopRide: () => RideRecord;
+    stopRide: () => Promise<RideRecord>;
     resetMeter: () => void;
     reloadData: () => Promise<void>;
 }
@@ -112,7 +112,7 @@ export function MeterProvider({ children }: { children: React.ReactNode }) {
         []
     );
 
-    const stopRide = useCallback((): RideRecord => {
+    const stopRide = useCallback(async (): Promise<RideRecord> => {
         dispatch({ type: 'STOP_RIDE' });
 
         const endTime = new Date().toISOString();
@@ -144,8 +144,8 @@ export function MeterProvider({ children }: { children: React.ReactNode }) {
             routePoints: state.routePoints,
         };
 
-        // Save to history (fire-and-forget)
-        rideHistoryStorage.saveRide(ride);
+        // Save to history and wait for completion to prevent race conditions
+        await rideHistoryStorage.saveRide(ride);
 
         return ride;
     }, [state]);
