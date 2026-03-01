@@ -41,5 +41,5 @@ yarn-error.*
 /android
 
 # Antigravity agent & docs
-.agent/
-docs/
+/.agent
+/docs/plans
