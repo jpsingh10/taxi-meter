@@ -1,4 +1,4 @@
-# 🚕 TaxiMeter
+# TaxiMeter
 
 A complete, feature-rich personal taxi meter application built with **React Native** and **Expo**. Designed for drivers to accurately track rides, calculate fares based on dynamic profiles, and generate printable receipts for passengers.
 
