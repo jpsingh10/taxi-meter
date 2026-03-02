@@ -34,20 +34,20 @@ A complete, feature-rich personal taxi meter application built with **React Nati
 ## Installation & Setup
 
 1. **Clone the repository:**
-   \`\`\`bash
+   ```bash
    git clone <repository-url>
    cd taxi-meter
-   \`\`\`
+   ```
 
 2. **Install dependencies:**
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 3. **Start the Expo development server:**
-   \`\`\`bash
+   ```bash
    npx expo start
-   \`\`\`
+   ```
 
 4. **Run on your device:**
    - Download the **Expo Go** app on your iOS or Android device.
@@ -55,7 +55,7 @@ A complete, feature-rich personal taxi meter application built with **React Nati
 
 ## Project Structure
 
-\`\`\`
+```
 taxi-meter/
 ├── app/                  # Expo Router pages (Tabs & Stack screens)
 │   ├── (tabs)/           # Main navigation tabs (Meter, History, Settings)
@@ -72,31 +72,31 @@ taxi-meter/
 │   └── utils/            # Helper utilities (PDF Receipt Generator)
 ├── app.json              # Expo configuration
 └── package.json          # Dependencies and scripts
-\`\`\`
+```
 
 ## Building for Production
 
 To create standalone, native applications for iOS (.ipa) and Android (.apk/.aab) without Expo Go, we use EAS (Expo Application Services).
 
 1. Install the EAS CLI:
-   \`\`\`bash
+   ```bash
    npm install -g eas-cli
-   \`\`\`
+   ```
 
 2. Log in to your Expo account:
-   \`\`\`bash
+   ```bash
    eas login
-   \`\`\`
+   ```
 
 3. Build for Android:
-   \`\`\`bash
+   ```bash
    eas build -p android --profile preview
-   \`\`\`
+   ```
 
 4. Build for iOS (Requires Apple Developer account):
-   \`\`\`bash
+   ```bash
    eas build -p ios
-   \`\`\`
+   ```
 
 ## License
 
